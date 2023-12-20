@@ -17,3 +17,7 @@ func _on_button_new_game_pressed() -> void:
 
 func _on_button_exit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_button_custom_cursor_pressed():
+	print("custom cursor button pressed")

@@ -24,6 +24,12 @@ layout_mode = 2
 focus_mode = 0
 text = "New Game"
 
+[node name="ButtonCustomCursor" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Has Custom Cursor"
+
 [node name="ButtonExit" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -37,14 +43,17 @@ horizontal_scroll_mode = 0
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
-text = "Adding lots of text here.
+text = "Adding lots of text here. 
 More text
 and more text
 and more text.
 So much text that we 
 can keep scrolling
 and scrolling
-and scrolling."
+and scrolling.
+
+If you can see this, then you have scrolled to the bottom."
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonNewGame" to="." method="_on_button_new_game_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonCustomCursor" to="." method="_on_button_custom_cursor_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonExit" to="." method="_on_button_exit_pressed"]
