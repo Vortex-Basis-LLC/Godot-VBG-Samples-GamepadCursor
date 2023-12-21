@@ -1,5 +1,8 @@
 extends Node2D
 
+# Reference to the InputMonitor which tracks whether app is in focus or not.
+@export var input_monitor: InputMonitor;
+
 # This is the internal device id used by Godot, so mouse events don't show
 # as actual mouse usage.
 const INTERNAL_DEVICE_ID := -2
@@ -54,6 +57,11 @@ func _on_joy_connection_changed(device_id, connected):
 		
 
 func _process(delta: float) -> void:
+	if input_monitor && !input_monitor.does_app_have_focus():
+		# If the app doesn't have focus, we won't let gamepad control
+		# the mouse.
+		return
+	
 	var mouse_over := find_control_under_mouse()
 	
 	handle_left_button()

@@ -24,6 +24,15 @@ var _has_used_touch: bool = false
 
 var _last_known_preferred_input_type := PreferredInputType.UNKNOWN
 
+var _app_has_focus := true
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_OUT:
+			_app_has_focus = false
+		NOTIFICATION_APPLICATION_FOCUS_IN:
+			_app_has_focus = true
+
 
 func _input(event):
 	if event is InputEventMouseMotion || event is InputEventMouseButton:
@@ -35,6 +44,9 @@ func _input(event):
 	elif event is InputEventKey:
 		report_keyboard_used()
 
+
+func does_app_have_focus() -> bool:
+	return _app_has_focus
 
 func is_mouse_preferred() -> bool:
 	return (_last_known_preferred_input_type == PreferredInputType.KEYBOARD_MOUSE)

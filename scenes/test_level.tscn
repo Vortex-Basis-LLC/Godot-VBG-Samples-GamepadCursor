@@ -11,8 +11,9 @@ input_monitor = NodePath("InputMonitor")
 [node name="InputMonitor" type="Node" parent="."]
 script = ExtResource("2_qq83b")
 
-[node name="GamepadCursor" type="Node2D" parent="."]
+[node name="GamepadCursor" type="Node2D" parent="." node_paths=PackedStringArray("input_monitor")]
 script = ExtResource("1_75ohs")
+input_monitor = NodePath("../InputMonitor")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
