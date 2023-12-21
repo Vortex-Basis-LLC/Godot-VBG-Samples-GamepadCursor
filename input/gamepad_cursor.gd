@@ -1,5 +1,9 @@
 extends Node2D
 
+# This is the internal device id used by Godot, so mouse events don't show
+# as actual mouse usage.
+const INTERNAL_DEVICE_ID := -2
+
 @export var max_speed := 500.0
 
 @export var max_friction_speed := 200.0
@@ -74,6 +78,8 @@ func _process(delta: float) -> void:
 		var event = InputEventMouseMotion.new()
 		event.position = new_mouse_pos
 		event.relative = int_mouse_move
+		event.device = INTERNAL_DEVICE_ID
+		
 		Input.parse_input_event(event)
 		
 		Input.warp_mouse(new_mouse_pos)
@@ -145,12 +151,14 @@ func handle_left_button() -> void:
 		event.button_index = MOUSE_BUTTON_LEFT
 		event.position = get_viewport().get_mouse_position()
 		event.pressed = true
+		event.device = INTERNAL_DEVICE_ID
 		Input.parse_input_event(event)
 	elif !is_left_button_pressed && was_left_button_pressed:
 		var event = InputEventMouseButton.new()
 		event.button_index = MOUSE_BUTTON_LEFT
 		event.position = get_viewport().get_mouse_position()
 		event.pressed = false
+		event.device = INTERNAL_DEVICE_ID
 		Input.parse_input_event(event)
 
 	was_left_button_pressed = is_left_button_pressed
