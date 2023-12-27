@@ -78,10 +78,17 @@ func _process(delta: float) -> void:
 	var mouse_move = current_velocity * delta
 
 	if (mouse_move != Vector2.ZERO):
+		if input_monitor:
+			input_monitor.report_gamepad_used()
+			
 		mouse_move += movement_remainder
 		var int_mouse_move = Vector2(int(mouse_move.x), int(mouse_move.y))
 		movement_remainder = mouse_move - int_mouse_move
 		var new_mouse_pos = last_mouse_pos + int_mouse_move
+		
+		# Clamp position to the viewport.
+		var viewport_rect := get_viewport_rect()
+		new_mouse_pos = new_mouse_pos.clamp(viewport_rect.position, viewport_rect.end - Vector2(1,1))
 		
 		var event = InputEventMouseMotion.new()
 		event.position = new_mouse_pos

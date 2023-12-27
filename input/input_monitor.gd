@@ -35,7 +35,7 @@ func _notification(what: int) -> void:
 
 
 func _input(event):
-	if event is InputEventMouseMotion || event is InputEventMouseButton:
+	if event is InputEventMouseMotion || event is InputEventMouseButton:		
 		report_mouse_used()
 	elif event is InputEventJoypadMotion || event is InputEventJoypadButton:
 		report_gamepad_used()
@@ -53,8 +53,14 @@ func is_mouse_preferred() -> bool:
 
 
 func report_mouse_used():
+	var time = Time.get_ticks_msec()
+	if (last_gamepad_used_time_msec + 1) >= time:
+		# We wil ignore this if the gamepad has been used recently as we will assume
+		# the simulated mouse movement via the gamepad has triggered this.
+		return
+	
 	_has_used_mouse = true
-	last_mouse_used_time_msec = Time.get_ticks_msec()
+	last_mouse_used_time_msec = time
 	_update_preferred_input_type()
 	
 func report_gamepad_used():
